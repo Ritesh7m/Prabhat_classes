@@ -23,7 +23,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
           <source src="/videos/promotion.mp4" type="video/mp4" />
         </video>
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-950/85 to-zinc-950/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent"/>
       </div>
 
       {/* Content */}

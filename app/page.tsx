@@ -6,7 +6,7 @@ import { AnnouncementBar } from "@/components/announcement-bar"
 import { HeroSection } from "@/components/hero-section"
 import { StatsSection } from "@/components/stats-section"
 import { ProgramsSection } from "@/components/programs-section"
-import { ExploreBatchesTree } from "@/components/explore-batches-tree"
+import { BatchesTimetable } from "@/components/explore-batches-tree"
 import { InfrastructureSection } from "@/components/infrastructure-section"
 import { ToppersSection } from "@/components/toppers-section"
 import { FacultySection } from "@/components/faculty-section"
@@ -85,18 +85,18 @@ export default function Home() {
       <StatsSection />
       <ProgramsSection />
       
-      <div id="batches" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-[#0f1016] border-y border-zinc-900">
+      <div id="batches" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-white border-y border-zinc-200">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-xs font-bold text-red-500 uppercase tracking-widest mb-2">02 / Batch Structure</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4 uppercase">
+            <p className="text-xs font-bold text-red-600 uppercase tracking-widest mb-2">02 / Batch Structure</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-zinc-950 mb-4 uppercase">
               Explore Batches
             </h2>
-            <p className="text-lg text-zinc-400 max-w-3xl mx-auto">
+            <p className="text-lg text-zinc-600 max-w-3xl mx-auto">
               Understand our comprehensive batch structure and features designed for your academic success.
             </p>
           </div>
-          <ExploreBatchesTree />
+          <BatchesTimetable />
         </div>
       </div>
       

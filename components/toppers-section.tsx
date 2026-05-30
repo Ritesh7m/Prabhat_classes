@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import { ArrowRight, Loader2, WifiOff, X } from "lucide-react"
 import { getToppers, Topper } from "@/lib/api/toppers"
-import { fallbackToppers } from "@/lib/api/fallback-data"
+import { fallbackToppers, fallbackToppers2024 } from "@/lib/api/fallback-data"
 
 // ─── Data helpers ────────────────────────────────────────────────────────────
 
@@ -294,6 +294,12 @@ export function ToppersSection() {
 
   const years = ["2025-2026", "2024-2025", "All-Time Records"]
 
+  // Pick local fallback based on selected year
+  const getLocalFallback = (year: string) => {
+    if (year === "2024-2025") return fallbackToppers2024
+    return fallbackToppers
+  }
+
   useEffect(() => {
     const fetchToppers = async () => {
       setIsLoading(true)
@@ -304,13 +310,15 @@ export function ToppersSection() {
           setRawToppers(result.data as any[])
           setIsOffline(result.isOffline)
         } else {
-          setToppers(fallbackToppers.map(transformTopper))
-          setRawToppers(fallbackToppers)
+          const localFallback = getLocalFallback(selectedYear)
+          setToppers(localFallback.map(transformTopper))
+          setRawToppers(localFallback)
           setIsOffline(true)
         }
       } catch {
-        setToppers(fallbackToppers.map(transformTopper))
-        setRawToppers(fallbackToppers)
+        const localFallback = getLocalFallback(selectedYear)
+        setToppers(localFallback.map(transformTopper))
+        setRawToppers(localFallback)
         setIsOffline(true)
       } finally {
         setIsLoading(false)
