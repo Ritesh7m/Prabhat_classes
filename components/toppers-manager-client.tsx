@@ -32,7 +32,12 @@ export default function ToppersManagerClient({ initialToppers }: ToppersManagerC
   // Form State
   const [studentName, setStudentName] = useState('');
   const [percentage, setPercentage] = useState<string>('');
-  const [academicYear, setAcademicYear] = useState('2026-2027');
+  const [academicYear, setAcademicYear] = useState<string>(() => {
+    const now = new Date();
+    // Academic year starts in June; if before June, use previous year as start
+    const start = now.getMonth() >= 5 ? now.getFullYear() : now.getFullYear() - 1;
+    return `${start}-${start + 1}`;
+  });
   const [imageUrl, setImageUrl] = useState('');
   const [rank, setRank] = useState<number>(1);
   const [attendanceRecord, setAttendanceRecord] = useState('95%');
@@ -46,13 +51,20 @@ export default function ToppersManagerClient({ initialToppers }: ToppersManagerC
 
   const router = useRouter();
 
-  const years = ['2026-2027', '2024-2025'];
+  // Generate academic years from 2015-2016 to 2034-2035, newest first
+  const years = Array.from({ length: 20 }, (_, i) => {
+    const start = 2034 - i;
+    return `${start}-${start + 1}`;
+  });
   const batches = ['English Medium', 'Hindi Medium'];
 
   const resetForm = () => {
+    const now = new Date();
+    const start = now.getMonth() >= 5 ? now.getFullYear() : now.getFullYear() - 1;
+    const currentYear = `${start}-${start + 1}`;
     setStudentName('');
     setPercentage('');
-    setAcademicYear('2026-2027');
+    setAcademicYear(currentYear);
     setImageUrl('');
     setRank(1);
     setAttendanceRecord('95%');

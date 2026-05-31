@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { clearSessionCookieAction } from '@/app/actions/auth';
+import { toast } from 'sonner';
 import {
   Users,
   GraduationCap,
@@ -25,10 +26,23 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     if (confirm('Are you sure you want to log out from the administrator portal?')) {
-      const res = await clearSessionCookieAction();
-      if (res.success) {
-        router.push('/login');
-        router.refresh();
+      try {
+        const res = await clearSessionCookieAction();
+        if (res.success) {
+          toast.success('Logged out successfully.', {
+            description: 'You have been signed out of the admin panel.',
+          });
+          setTimeout(() => {
+            router.push('/login');
+            router.refresh();
+          }, 800);
+        } else {
+          toast.error('Logout failed.', {
+            description: 'Could not clear session. Please try again.',
+          });
+        }
+      } catch {
+        toast.error('Unexpected error during logout.');
       }
     }
   };

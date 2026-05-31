@@ -20,11 +20,43 @@ export function StudentLifeSection() {
     }
   }
 
-  // Draggable gallery items
+  // Draggable gallery items — all 5 photos spread across the canvas
   const galleryItems = [
-    { id: 1, title: 'Class Celebrations', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg', className: 'absolute top-8 left-[25%] rotate-[-6deg]', color: 'from-red-500 to-red-600' },
-    { id: 2, title: 'Cultural Events', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM (1).jpeg', className: 'absolute top-4 left-[42%] rotate-[8deg]', color: 'from-emerald-500 to-emerald-600' },
-    { id: 3, title: 'Group Activities', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg', className: 'absolute top-12 left-[58%] rotate-[-3deg]', color: 'from-purple-500 to-purple-600' },
+    {
+      id: 1,
+      title: 'Class Celebrations',
+      image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg',
+      className: 'absolute top-6 left-[5%] rotate-[-7deg]',
+      color: 'from-red-500 to-red-600',
+    },
+    {
+      id: 2,
+      title: 'Cultural Events',
+      image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM (1).jpeg',
+      className: 'absolute top-4 left-[28%] rotate-[6deg]',
+      color: 'from-emerald-500 to-emerald-600',
+    },
+    {
+      id: 3,
+      title: 'Group Activities',
+      image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg',
+      className: 'absolute top-10 left-[51%] rotate-[-4deg]',
+      color: 'from-purple-500 to-purple-600',
+    },
+    {
+      id: 4,
+      title: 'Student Moments',
+      image: '/images/WhatsApp Image 2026-05-31 at 4.43.18 PM.jpeg',
+      className: 'absolute top-[200px] left-[15%] rotate-[5deg]',
+      color: 'from-amber-500 to-amber-600',
+    },
+    {
+      id: 5,
+      title: 'Fun Activities',
+      image: '/images/WhatsApp Image 2026-05-31 at 4.43.19 PM.jpeg',
+      className: 'absolute top-[210px] left-[62%] rotate-[-6deg]',
+      color: 'from-sky-500 to-sky-600',
+    },
   ]
 
   return (
@@ -102,7 +134,7 @@ export function StudentLifeSection() {
           <h3 className="text-2xl font-black text-zinc-950 mb-4 uppercase">Activity Gallery</h3>
           <p className="text-zinc-500 text-sm mb-8">Drag the cards around to explore our student activities</p>
           
-          <DraggableCardContainer className="relative min-h-[400px] w-full bg-gradient-to-br from-zinc-50 to-zinc-100 rounded-2xl border-2 border-dashed border-zinc-200 overflow-hidden">
+          <DraggableCardContainer className="relative min-h-[500px] w-full bg-gradient-to-br from-zinc-50 to-zinc-100 rounded-2xl border-2 border-dashed border-zinc-200 overflow-hidden">
             {/* Center Text */}
             <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-xl md:text-2xl font-black text-zinc-300 max-w-xs pointer-events-none z-0">
               Drag cards to explore student life moments

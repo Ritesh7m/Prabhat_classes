@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans, Comic_Neue } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 import fs from 'fs'
 import path from 'path'
@@ -90,6 +91,7 @@ export default function RootLayout({
     <html lang="en" className="bg-white" suppressHydrationWarning>
       <body className={`${plusJakarta.variable} ${comicNeue.variable} font-sans antialiased`} suppressHydrationWarning>
         {children}
+        <Toaster position="top-center" richColors closeButton />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

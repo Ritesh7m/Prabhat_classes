@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { X, Loader2, CheckCircle, AlertCircle, WifiOff } from 'lucide-react'
 import { createBooking } from '@/lib/api/bookings'
+import { toast } from 'sonner'
 
 interface BookDemoModalProps {
   isOpen: boolean
@@ -88,10 +89,12 @@ export function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
         console.error('[BookDemoModal] Booking error:', result.error)
         setMessage(result.error)
         setSubmitState('error')
+        toast.error('Booking failed.', { description: result.error })
       } else if (result.isOffline) {
         console.warn('[BookDemoModal] Booking saved offline')
         setMessage(result.message)
         setSubmitState('offline')
+        toast('Saved offline.', { description: result.message })
         // Auto close after showing offline message
         setTimeout(() => {
           resetForm()
@@ -101,6 +104,7 @@ export function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
         console.log('[BookDemoModal] Booking successful')
         setMessage(result.message)
         setSubmitState('success')
+        toast.success('Demo booked!', { description: result.message })
         // Auto close after success
         setTimeout(() => {
           resetForm()

@@ -6,6 +6,7 @@ import { Send, CheckCircle, AlertCircle, Loader2, WifiOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { submitContact } from "@/lib/api/contacts"
+import { toast } from "sonner"
 
 type SubmitState = "idle" | "loading" | "success" | "error" | "offline"
 
@@ -34,11 +35,13 @@ export function FooterSection() {
     if (!formData.studentName || !formData.parentContact || !formData.classSelect) {
       setMessage("Please fill all required fields")
       setSubmitState("error")
+      toast.error('Missing fields.', { description: 'Please fill all required fields.' })
       return
     }
     if (!/^[0-9]{10}$/.test(formData.parentContact)) {
       setMessage("Please enter a valid 10-digit phone number")
       setSubmitState("error")
+      toast.error('Invalid phone number.', { description: 'Please enter a valid 10-digit phone number.' })
       return
     }
 
@@ -60,6 +63,7 @@ ${formData.email ? `• Email: ${formData.email.trim()}` : ""}`
 
       setSubmitState("success")
       setMessage("WhatsApp opened! Please send the prefilled message in chat to complete your inquiry.")
+      toast.success('WhatsApp opened!', { description: 'Please send the pre-filled message to complete your inquiry.' })
 
       setTimeout(() => {
         setFormData({ studentName: "", parentContact: "", email: "", classSelect: "" })
@@ -69,6 +73,7 @@ ${formData.email ? `• Email: ${formData.email.trim()}` : ""}`
     } catch {
       setMessage("An unexpected error occurred. Please try again.")
       setSubmitState("error")
+      toast.error('Unexpected error.', { description: 'An unexpected error occurred. Please try again.' })
     }
   }
 
