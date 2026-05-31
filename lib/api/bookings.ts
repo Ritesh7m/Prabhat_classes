@@ -1,4 +1,9 @@
-import { api, handleApiError, ApiResponse } from './client';
+import { 
+  createBookingAction, 
+  getBookingsAction, 
+  updateBookingStatusAction, 
+  cancelBookingAction 
+} from '@/app/actions/bookings';
 
 export interface DemoBooking {
   _id?: string;
@@ -21,34 +26,49 @@ export const createBooking = async (bookingData: Omit<DemoBooking, '_id' | 'stat
   isOffline: boolean;
 }> => {
   try {
-    const response = await api.post<ApiResponse<DemoBooking> & { message: string }>('/bookings', bookingData);
-    console.log('[Bookings Service] Booking created successfully');
-    return { 
-      data: response.data.data, 
-      message: response.data.message || 'Booking created successfully!',
-      error: null,
-      isOffline: false
-    };
-  } catch (error) {
-    const errorMessage = handleApiError(error);
-    console.error('[Bookings Service] Failed to create booking:', errorMessage);
-    
-    // If backend is offline, simulate success for UX but flag it
-    if (errorMessage.includes('Unable to connect')) {
-      console.warn('[Bookings Service] Backend offline - booking will be processed when available');
-      return {
-        data: { ...bookingData, _id: `offline-${Date.now()}`, status: 'pending' },
-        message: 'Your booking request has been received. We will confirm once our system is back online.',
+    const response = await createBookingAction({
+      name: bookingData.name,
+      phone: bookingData.phone,
+      email: bookingData.email,
+      selectedDate: bookingData.selectedDate,
+      classInterested: bookingData.classInterested,
+      preferredBatch: bookingData.preferredBatch,
+    });
+
+    if (response.success && response.data) {
+      const item = response.data;
+      return { 
+        data: {
+          _id: item.id,
+          name: item.name,
+          phone: item.phone,
+          email: item.email,
+          selectedDate: item.selected_date,
+          preferredBatch: item.preferred_batch,
+          classInterested: item.class_interested,
+          status: item.status,
+          notes: item.notes,
+          createdAt: item.created_at,
+        }, 
+        message: response.message || 'Booking created successfully!',
         error: null,
-        isOffline: true
+        isOffline: false
+      };
+    } else {
+      return { 
+        data: null, 
+        message: '',
+        error: response.message || 'Failed to create booking',
+        isOffline: false
       };
     }
-    
-    return { 
-      data: null, 
-      message: '',
-      error: errorMessage,
-      isOffline: false
+  } catch (error: any) {
+    console.warn('[Bookings Service] Supabase Server Action error - falling back to offline mode. Error:', error?.message || error);
+    return {
+      data: { ...bookingData, _id: `offline-${Date.now()}`, status: 'pending' },
+      message: 'Your booking request has been received. We will confirm once our system is back online.',
+      error: null,
+      isOffline: true
     };
   }
 };
@@ -59,11 +79,26 @@ export const getBookings = async (params?: { status?: string; date?: string }): 
   error: string | null 
 }> => {
   try {
-    const response = await api.get<ApiResponse<DemoBooking[]>>('/bookings', { params });
-    return { data: response.data.data, error: null };
-  } catch (error) {
-    console.error('[Bookings Service] Failed to fetch bookings:', handleApiError(error));
-    return { data: [], error: handleApiError(error) };
+    const response = await getBookingsAction(params);
+    if (response.success && response.data) {
+      const mapped = response.data.map((item: any) => ({
+        _id: item.id,
+        name: item.name,
+        phone: item.phone,
+        email: item.email,
+        selectedDate: item.selected_date,
+        preferredBatch: item.preferred_batch,
+        classInterested: item.class_interested,
+        status: item.status,
+        notes: item.notes,
+        createdAt: item.created_at,
+      }));
+      return { data: mapped, error: null };
+    }
+    return { data: [], error: response.message || 'Failed to fetch bookings' };
+  } catch (error: any) {
+    console.error('[Bookings Service] Error in getBookings:', error);
+    return { data: [], error: error?.message || 'Failed to fetch bookings' };
   }
 };
 
@@ -73,21 +108,38 @@ export const updateBookingStatus = async (
   status: DemoBooking['status']
 ): Promise<{ data: DemoBooking | null; error: string | null }> => {
   try {
-    const response = await api.put<ApiResponse<DemoBooking>>(`/bookings/${id}/status`, { status });
-    return { data: response.data.data, error: null };
-  } catch (error) {
-    console.error('[Bookings Service] Failed to update booking:', handleApiError(error));
-    return { data: null, error: handleApiError(error) };
+    const response = await updateBookingStatusAction(id, status || 'pending');
+    if (response.success && response.data) {
+      const item = response.data;
+      const mapped: DemoBooking = {
+        _id: item.id,
+        name: item.name,
+        phone: item.phone,
+        email: item.email,
+        selectedDate: item.selected_date,
+        preferredBatch: item.preferred_batch,
+        classInterested: item.class_interested,
+        status: item.status,
+        notes: item.notes,
+        createdAt: item.created_at,
+      };
+      return { data: mapped, error: null };
+    }
+    return { data: null, error: response.message || 'Failed to update booking' };
+  } catch (error: any) {
+    console.error('[Bookings Service] Error in updateBookingStatus:', error);
+    return { data: null, error: error?.message || 'Failed to update booking' };
   }
 };
 
 // Cancel booking
 export const cancelBooking = async (id: string): Promise<{ success: boolean; error: string | null }> => {
   try {
-    await api.delete(`/bookings/${id}`);
-    return { success: true, error: null };
-  } catch (error) {
-    console.error('[Bookings Service] Failed to cancel booking:', handleApiError(error));
-    return { success: false, error: handleApiError(error) };
+    const response = await cancelBookingAction(id);
+    return { success: !!response.success, error: response.success ? null : (response.message || 'Failed to cancel') };
+  } catch (error: any) {
+    console.error('[Bookings Service] Error in cancelBooking:', error);
+    return { success: false, error: error?.message || 'Failed to cancel booking' };
   }
 };
+

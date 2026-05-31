@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Pause, Play } from 'lucide-react'
 import { useState, useRef } from 'react'
 import { DraggableCardBody, DraggableCardContainer } from '@/components/ui/draggable-card'
@@ -21,12 +22,9 @@ export function StudentLifeSection() {
 
   // Draggable gallery items
   const galleryItems = [
-    { id: 1, title: 'Class Celebrations', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg', className: 'absolute top-8 left-[5%] rotate-[-5deg]', color: 'from-red-500 to-red-600' },
-    { id: 2, title: 'Award Ceremonies', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg', className: 'absolute top-32 left-[15%] rotate-[-7deg]', color: 'from-amber-500 to-amber-600' },
-    { id: 3, title: 'Cultural Events', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM (1).jpeg', className: 'absolute top-4 left-[30%] rotate-[8deg]', color: 'from-emerald-500 to-emerald-600' },
-    { id: 4, title: 'Study Sessions', image: '/images/WhatsApp Image 2026-05-24 at 10.32.24 AM.jpeg', className: 'absolute top-24 left-[45%] rotate-[5deg]', color: 'from-blue-500 to-blue-600' },
-    { id: 5, title: 'Group Activities', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg', className: 'absolute top-16 right-[25%] rotate-[2deg]', color: 'from-purple-500 to-purple-600' },
-    { id: 6, title: 'Excellence Moments', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg', className: 'absolute top-8 right-[10%] rotate-[-4deg]', color: 'from-pink-500 to-pink-600' },
+    { id: 1, title: 'Class Celebrations', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg', className: 'absolute top-8 left-[25%] rotate-[-6deg]', color: 'from-red-500 to-red-600' },
+    { id: 2, title: 'Cultural Events', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM (1).jpeg', className: 'absolute top-4 left-[42%] rotate-[8deg]', color: 'from-emerald-500 to-emerald-600' },
+    { id: 3, title: 'Group Activities', image: '/images/WhatsApp Image 2026-05-25 at 2.18.11 AM.jpeg', className: 'absolute top-12 left-[58%] rotate-[-3deg]', color: 'from-purple-500 to-purple-600' },
   ]
 
   return (
@@ -77,6 +75,7 @@ export function StudentLifeSection() {
               {/* Play Button Overlay */}
               <button
                 onClick={togglePlay}
+                aria-label={isPlaying ? "Pause student life video highlights" : "Play student life video highlights"}
                 className="absolute inset-0 flex items-center justify-center bg-zinc-950/30 group-hover:bg-zinc-950/50 transition-colors duration-300 z-10"
               >
                 <div className={`w-16 h-16 rounded-full bg-red-600 flex items-center justify-center transition-transform duration-300 ${
@@ -112,17 +111,14 @@ export function StudentLifeSection() {
             {/* Draggable Cards */}
             {galleryItems.map((item) => (
               <DraggableCardBody key={item.id} className={item.className}>
-                <div className={`w-36 h-44 md:w-44 md:h-52 bg-gradient-to-br ${item.color} rounded-xl shadow-lg flex flex-col items-center justify-center p-3 border-4 border-white cursor-grab active:cursor-grabbing`}>
-                  <div className="w-full h-28 md:h-36 bg-zinc-950/10 rounded-lg mb-2 overflow-hidden relative">
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover select-none pointer-events-none"
-                    />
-                  </div>
-                  {/* <h4 className="text-white text-xs md:text-sm font-bold text-center uppercase tracking-wide truncate w-full">
-                    {item.title}
-                  </h4> */}
+                <div className="relative w-36 h-44 md:w-44 md:h-52 shadow-xl overflow-hidden cursor-grab active:cursor-grabbing rounded-none border border-zinc-200/30">
+                  <Image 
+                    src={item.image} 
+                    alt={item.title} 
+                    fill
+                    sizes="(max-width: 768px) 144px, 176px"
+                    className="object-cover select-none pointer-events-none"
+                  />
                 </div>
               </DraggableCardBody>
             ))}
@@ -133,12 +129,12 @@ export function StudentLifeSection() {
         <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-8 md:p-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <p className="text-4xl font-black text-red-600 mb-2">500+</p>
+              <p className="text-4xl font-black text-red-600 mb-2">200+</p>
               <p className="text-sm text-zinc-600 uppercase tracking-wide">Active Students</p>
             </div>
             <div className="text-center border-l border-r border-zinc-200">
-              <p className="text-4xl font-black text-emerald-600 mb-2">50+</p>
-              <p className="text-sm text-zinc-600 uppercase tracking-wide">Annual Events</p>
+              <p className="text-4xl font-black text-emerald-600 mb-2">20+</p>
+              <p className="text-sm text-zinc-600 uppercase tracking-wide">Teaching Staff</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-black text-blue-600 mb-2">100%</p>

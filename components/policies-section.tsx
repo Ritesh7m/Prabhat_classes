@@ -1,85 +1,155 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, ShieldCheck } from "lucide-react"
 
-const policies = [
+interface PolicyItem {
+  id: string
+  title: string
+  content?: string
+  bullets?: string[]
+}
+
+const studentPolicies: PolicyItem[] = [
   {
-    title: "Attendance & Punctuality",
-    content:
-      "Undivided, regular class attendance tracking is mandatory. Every single unexcused absence triggers immediate parental notification loops. Students must maintain a minimum 85% attendance to be eligible for examinations. Medical leaves require proper documentation within 48 hours of absence.",
+    id: "01",
+    title: "Attendance Policy",
+    content: "Regular attendance is essential for academic progress. Students are expected to attend all scheduled lectures and inform the institute in advance whenever possible if they are unable to attend."
   },
   {
-    title: "Code of Conduct",
-    content:
-      "Absolute mutual respect between peers, mentors, and office staff is non-negotiable to secure a pristine study cell environment. Mobile phones must be switched off during class hours. Any form of misbehavior or disturbance will result in disciplinary action and possible suspension.",
+    id: "02",
+    title: "Fees & Payment Policy",
+    bullets: [
+      "Fees once paid are non-refundable and non-transferable.",
+      "Installment facilities, if offered, must be followed as per the agreed schedule.",
+      "Admission is confirmed only after successful fee payment."
+    ]
   },
   {
-    title: "Continuous Assessments",
-    content:
-      "Weekly tests are structural prerequisites. Absence from mock papers requires formal rescheduling and progress evaluation review triggers. All assessments follow board examination patterns. Results are shared with parents within 3 working days of the test.",
+    id: "03",
+    title: "Academic Responsibility",
+    content: "Prabhat Classes provides quality teaching, study material, regular tests, and academic guidance. However, a student's performance also depends on attendance, effort, practice, and participation."
   },
   {
-    title: "Fee Payment Schedule",
-    content:
-      "Fees are payable monthly in advance by the 5th of each month. Late payment attracts a nominal penalty. Fee receipts must be preserved for future reference. Refund requests are processed as per the institute's refund policy available at the office.",
+    id: "04",
+    title: "Test & Evaluation Policy",
+    content: "Regular assessments may be conducted to monitor student progress. Parents may be informed about academic performance whenever necessary."
   },
   {
-    title: "Safety & Security Protocols",
-    content:
-      "Students must carry their ID cards at all times within the premises. Parents/guardians must provide verified contact details. Pickup authorization for minors requires pre-registration. CCTV monitoring is in place for student safety.",
+    id: "05",
+    title: "Discipline & Conduct",
+    content: "Students are expected to maintain respectful behavior towards teachers, staff members, and fellow students. Any form of misconduct, disruption, or inappropriate behavior may result in disciplinary action."
   },
+  {
+    id: "06",
+    title: "Study Material Policy",
+    content: "All study materials provided by the institute are intended solely for enrolled students and may not be copied, reproduced, or distributed without permission."
+  },
+  {
+    id: "07",
+    title: "Parent Communication",
+    content: "Parents are encouraged to stay in touch regarding their child's academic performance, attendance, and overall development."
+  },
+  {
+    id: "08",
+    title: "Safety & Security",
+    content: "The institute strives to provide a safe and supportive learning environment. Students are expected to follow classroom rules and institute guidelines at all times."
+  }
 ]
 
 export function PoliciesSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="policies" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-zinc-50">
+    <section id="policies" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-zinc-50 border-t border-zinc-200">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Left Column - Header */}
-          <div className="lg:col-span-1">
-            <span className="text-xs font-bold text-red-600 uppercase tracking-widest">
-              02 / Guidelines
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black tracking-tight text-zinc-950 mt-4 mb-6">
-              Our Structural Guidelines & Policies
-            </h2>
-            <p className="text-zinc-600 leading-relaxed">
-              Excellence requires discipline. Our policies are strictly enforced to maintain a highly focused, professional environment conducive to rigorous learning.
-            </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left Column - Header & Disclaimer */}
+          <div className="lg:col-span-5 space-y-8">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-red-50 text-red-600 text-xs font-bold uppercase tracking-wider mb-4 rounded-none border border-red-100">
+                <ShieldCheck className="w-4 h-4" />
+                <span>02 / Guidelines</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-zinc-950 uppercase leading-none mt-2 mb-6">
+                Student & Parent Policy
+              </h2>
+              <p className="text-zinc-600 leading-relaxed text-sm md:text-base">
+                Maintaining a highly disciplined, premium educational atmosphere requires absolute commitment from both students and parents. Please review our structural guidelines below.
+              </p>
+            </div>
+
+            {/* Website Disclaimer Accent Card */}
+            <div className="border-l-4 border-red-600 bg-white p-6 rounded-none shadow-sm border border-zinc-200 border-l-0 relative overflow-hidden">
+              <h3 className="text-xs font-black uppercase tracking-widest text-zinc-950 mb-3 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-red-600 inline-block"></span>
+                Website Disclaimer
+              </h3>
+              <div className="space-y-3 text-xs text-zinc-600 leading-relaxed">
+                <p>
+                  The information provided on this website is intended for general informational purposes only. Batch schedules, fees, academic programs, and admission details may change from time to time. Parents and students are advised to contact the institute directly for the latest information.
+                </p>
+                <p>
+                  Prabhat Classes does not guarantee specific examination results, as academic success depends on individual student effort, attendance, and performance.
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Right Column - Accordion */}
-          <div className="lg:col-span-2">
+          {/* Right Column - Premium Accordion */}
+          <div className="lg:col-span-7">
             <div className="divide-y divide-zinc-200 border-t border-b border-zinc-200">
-              {policies.map((policy, index) => (
-                <div key={index}>
-                  <button
-                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                    className="w-full py-5 flex items-center justify-between text-left group"
-                  >
-                    <span className="font-bold text-zinc-950 group-hover:text-red-600 transition-colors">
-                      {policy.title}
-                    </span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-zinc-400 transition-transform duration-300 ${
-                        openIndex === index ? "rotate-180" : ""
+              {studentPolicies.map((policy, index) => {
+                const isOpen = openIndex === index
+                return (
+                  <div key={policy.id} className="group transition-all duration-300">
+                    <button
+                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                      className="w-full py-6 flex items-center justify-between text-left focus:outline-none"
+                    >
+                      <div className="flex items-center gap-4 md:gap-6">
+                        <span className={`text-xs md:text-sm font-mono font-bold transition-colors ${
+                          isOpen ? "text-red-600" : "text-zinc-400 group-hover:text-zinc-600"
+                        }`}>
+                          {policy.id}
+                        </span>
+                        <span className={`font-black text-base md:text-lg uppercase tracking-wide transition-colors ${
+                          isOpen ? "text-red-600" : "text-zinc-900 group-hover:text-red-600"
+                        }`}>
+                          {policy.title}
+                        </span>
+                      </div>
+                      <ChevronDown
+                        className={`w-5 h-5 transition-all duration-300 ${
+                          isOpen ? "rotate-180 text-red-600" : "text-zinc-400 group-hover:text-zinc-600"
+                        }`}
+                      />
+                    </button>
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ${
+                        isOpen ? "max-h-[300px] pb-6" : "max-h-0"
                       }`}
-                    />
-                  </button>
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      openIndex === index ? "max-h-96 pb-5" : "max-h-0"
-                    }`}
-                  >
-                    <p className="text-zinc-600 leading-relaxed pr-8">
-                      {policy.content}
-                    </p>
+                    >
+                      <div className="pl-8 md:pl-10">
+                        {policy.bullets ? (
+                          <ul className="list-none space-y-3">
+                            {policy.bullets.map((bullet, idx) => (
+                              <li key={idx} className="text-sm text-zinc-600 leading-relaxed flex items-start gap-2.5">
+                                <span className="text-red-500 font-extrabold mt-0.5 select-none">•</span>
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-sm text-zinc-600 leading-relaxed">
+                            {policy.content}
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ export const fallbackToppers = [
     percentage: '94.40%',
     rank: 1,
     image: '/images/topper-suhani.png',
-    year: '2025-2026',
+    year: '2026-2027',
     attendanceRecord: '98%',
     batch: 'English Medium'
   },
@@ -17,7 +17,7 @@ export const fallbackToppers = [
     percentage: '92.60%',
     rank: 2,
     image: '/images/topper-mayur.png',
-    year: '2025-2026',
+    year: '2026-2027',
     attendanceRecord: '97%',
     batch: 'English Medium'
   },
@@ -27,7 +27,7 @@ export const fallbackToppers = [
     percentage: '90.00%',
     rank: 3,
     image: '/images/topper-ritu.png',
-    year: '2025-2026',
+    year: '2026-2027',
     attendanceRecord: '96%',
     batch: 'Hindi Medium'
   },
@@ -37,7 +37,7 @@ export const fallbackToppers = [
     percentage: '89.00%',
     rank: 4,
     image: '/images/topper-dhruv.png',
-    year: '2025-2026',
+    year: '2026-2027',
     attendanceRecord: '95%',
     batch: 'English Medium'
   },
@@ -47,7 +47,7 @@ export const fallbackToppers = [
     percentage: '88.20%',
     rank: 5,
     image: '/images/topper-meraj.png',
-    year: '2025-2026',
+    year: '2026-2027',
     attendanceRecord: '94%',
     batch: 'Hindi Medium'
   }
@@ -56,70 +56,70 @@ export const fallbackToppers = [
 export const fallbackToppers2024 = [
   {
     _id: '2024-1',
-    name: 'Topper 1',
-    percentage: '95.20%',
+    name: 'Hardi Prajapati',
+    percentage: '95.40%',
     rank: 1,
-    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.06%20AM.jpeg',
+    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.13%20AM.jpeg',
     year: '2024-2025',
     attendanceRecord: '99%',
     batch: 'English Medium'
   },
   {
     _id: '2024-2',
-    name: 'Topper 2',
-    percentage: '93.40%',
+    name: 'Megha Vhatkar',
+    percentage: '92.80%',
     rank: 2,
-    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.07%20AM.jpeg',
+    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.11%20AM.jpeg',
     year: '2024-2025',
     attendanceRecord: '97%',
-    batch: 'Hindi Medium'
-  },
-  {
-    _id: '2024-3',
-    name: 'Topper 3',
-    percentage: '91.80%',
-    rank: 3,
-    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.08%20AM.jpeg',
-    year: '2024-2025',
-    attendanceRecord: '96%',
     batch: 'English Medium'
   },
   {
-    _id: '2024-4',
-    name: 'Topper 4',
+    _id: '2024-3',
+    name: 'Ansh Dubey',
     percentage: '90.60%',
+    rank: 3,
+    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.12%20AM.jpeg',
+    year: '2024-2025',
+    attendanceRecord: '96%',
+    batch: 'Hindi Medium'
+  },
+  {
+    _id: '2024-4',
+    name: 'Abhishek Chauvan',
+    percentage: '90.40%',
     rank: 4,
-    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.09%20AM.jpeg',
+    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.07%20AM.jpeg',
     year: '2024-2025',
     attendanceRecord: '95%',
     batch: 'Hindi Medium'
   },
   {
     _id: '2024-5',
-    name: 'Topper 5',
-    percentage: '89.40%',
+    name: 'Vishesh Giri',
+    percentage: '89.60%',
     rank: 5,
-    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.11%20AM.jpeg',
+    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.09%20AM.jpeg',
     year: '2024-2025',
     attendanceRecord: '94%',
     batch: 'English Medium'
   },
   {
     _id: '2024-6',
-    name: 'Topper 6',
-    percentage: '88.00%',
+    name: 'Khushi Vishwakarma',
+    percentage: '88.40%',
     rank: 6,
-    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.12%20AM.jpeg',
+    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.06%20AM.jpeg',
     year: '2024-2025',
     attendanceRecord: '93%',
-    batch: 'Hindi Medium'
+    batch: 'English Medium'
   },
   {
     _id: '2024-7',
-    name: 'Topper 7',
-    percentage: '87.20%',
+    name: 'Ayush Singh',
+    percentage: '87.40%',
     rank: 7,
-    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.13%20AM.jpeg',
+    image: '/images/2024/WhatsApp%20Image%202026-05-26%20at%2012.22.08%20AM.jpeg',
     year: '2024-2025',
     attendanceRecord: '92%',
     batch: 'English Medium'

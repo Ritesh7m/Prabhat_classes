@@ -6,44 +6,46 @@ import { AnnouncementBar } from "@/components/announcement-bar"
 import { HeroSection } from "@/components/hero-section"
 import { StatsSection } from "@/components/stats-section"
 import { ProgramsSection } from "@/components/programs-section"
-import { BatchesTimetable } from "@/components/explore-batches-tree"
 import { InfrastructureSection } from "@/components/infrastructure-section"
-import { ToppersSection } from "@/components/toppers-section"
-import { FacultySection } from "@/components/faculty-section"
-import { StudentLifeSection } from "@/components/student-life-section"
-import { PoliciesSection } from "@/components/policies-section"
-import { FooterSection } from "@/components/footer-section"
-import { BookDemoModal } from "@/components/book-demo-modal"
+import dynamic from "next/dynamic"
+
+const ToppersSection = dynamic(() => import("@/components/toppers-section").then((mod) => mod.ToppersSection), {
+  ssr: false,
+})
+const FacultySection = dynamic(() => import("@/components/faculty-section").then((mod) => mod.FacultySection), {
+  ssr: false,
+})
+const StudentLifeSection = dynamic(() => import("@/components/student-life-section").then((mod) => mod.StudentLifeSection), {
+  ssr: false,
+})
+const PoliciesSection = dynamic(() => import("@/components/policies-section").then((mod) => mod.PoliciesSection), {
+  ssr: false,
+})
+const FooterSection = dynamic(() => import("@/components/footer-section").then((mod) => mod.FooterSection), {
+  ssr: false,
+})
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home")
-  const [isBookDemoOpen, setIsBookDemoOpen] = useState(false)
 
   const handleNavigate = (section: string) => {
     setActiveSection(section)
-    if (section === "batches") {
-      const element = document.getElementById("batches")
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-      }
-    } else {
-      const element = document.getElementById(section)
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-      } else if (section === "home") {
-        window.scrollTo({ top: 0, behavior: "smooth" })
-      } else if (section === "contact") {
-        const footer = document.getElementById("contact")
-        if (footer) {
-          footer.scrollIntoView({ behavior: "smooth" })
-        }
+    const element = document.getElementById(section)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    } else if (section === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    } else if (section === "contact") {
+      const footer = document.getElementById("contact")
+      if (footer) {
+        footer.scrollIntoView({ behavior: "smooth" })
       }
     }
   }
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "programs", "batches", "toppers", "faculty", "student-life", "policies", "contact"]
+      const sections = ["home", "programs", "toppers", "faculty", "student-life", "policies", "contact"]
       const scrollPosition = window.scrollY + 200
 
       for (const section of sections) {
@@ -72,33 +74,14 @@ export default function Home() {
       <Navbar 
         activeSection={activeSection} 
         onNavigate={handleNavigate}
-        onBookDemo={() => setIsBookDemoOpen(true)}
-      />
-      <BookDemoModal 
-        isOpen={isBookDemoOpen} 
-        onClose={() => setIsBookDemoOpen(false)} 
       />
       
       <div id="home">
-        <HeroSection onNavigate={() => setIsBookDemoOpen(true)} />
+        <HeroSection onNavigate={handleNavigate} />
       </div>
       <StatsSection />
       <ProgramsSection />
-      
-      <div id="batches" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-white border-y border-zinc-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-xs font-bold text-red-600 uppercase tracking-widest mb-2">02 / Batch Structure</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-zinc-950 mb-4 uppercase">
-              Explore Batches
-            </h2>
-            <p className="text-lg text-zinc-600 max-w-3xl mx-auto">
-              Understand our comprehensive batch structure and features designed for your academic success.
-            </p>
-          </div>
-          <BatchesTimetable />
-        </div>
-      </div>
+
       
       <InfrastructureSection />
       <ToppersSection />
@@ -109,7 +92,7 @@ export default function Home() {
 
       {/* Sticky Left WhatsApp Button */}
       <a
-        href="https://wa.me/918286080756"
+        href="https://wa.me/919321446648"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed left-5 bottom-20 md:bottom-8 z-40 flex items-center justify-center w-14 h-14 bg-zinc-900/30 hover:bg-zinc-900/50 border border-zinc-200/20 text-white rounded-full shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 group"
@@ -125,6 +108,26 @@ export default function Home() {
         </svg>
         {/* Glow effect on hover */}
         <span className="absolute inset-0 rounded-full bg-green-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+      </a>
+
+      {/* Sticky Right Google Maps Directions Button */}
+      <a
+        href="https://www.google.com/maps/dir/?api=1&destination=Prabhat+Coaching+Classes,+Jamer+Ahmed+Chawl,+N.S.S+Road,+Opp.+Swami+Samarth+Mandir,+Asalpha,+Ghatkopar+West,+Mumbai+-+400084"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed right-5 bottom-20 md:bottom-8 z-40 flex items-center justify-center w-14 h-14 bg-zinc-900/30 hover:bg-zinc-900/50 border border-zinc-200/20 text-white rounded-full shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 group"
+        title="Get Directions on Google Maps"
+        aria-label="Get Directions on Google Maps"
+      >
+        <svg 
+          className="w-7 h-7 text-white transition-colors duration-300 group-hover:text-red-500" 
+          fill="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+        </svg>
+        {/* Glow effect on hover */}
+        <span className="absolute inset-0 rounded-full bg-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
       </a>
     </main>
   )

@@ -16,34 +16,15 @@ const transformTopper = (topper: (typeof fallbackToppers)[0] | Topper) => ({
   _id: topper._id,
 })
 
-const mediaArchive = [
-  {
-    image: "/images/topper-mayur.png",
-    type: "PRINT MEDIA",
-    year: "2023",
-    title: "ANNUAL EXCELLENCE CAMPAIGN",
-    description:
-      "Historical scan of our primary admission drive flyer, highlighting top performers across standards I to X.",
-  },
-  {
-    image: "/images/topper-suhani.png",
-    type: "PAMPHLET",
-    year: "2022",
-    title: "COMMUNITY OUTREACH PROGRAM",
-    description:
-      "Documented outreach material focusing on scholarship opportunities and recognizing local talent in Ghatkopar.",
-  },
-]
-
 // ─── Expanded modal ───────────────────────────────────────────────────────────
 
-function TopperModal({
-  topper,
-  raw,
+function ImageLightboxModal({
+  image,
+  alt,
   onClose,
 }: {
-  topper: ReturnType<typeof transformTopper>
-  raw: any
+  image: string
+  alt: string
   onClose: () => void
 }) {
   useEffect(() => {
@@ -60,71 +41,26 @@ function TopperModal({
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/90 backdrop-blur-sm cursor-pointer"
         onClick={onClose}
       />
 
-      {/* Card */}
-      <div className="relative z-10 w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl animate-fade-in-up">
-        {/* Close */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors"
-          aria-label="Close"
-        >
-          <X className="w-4 h-4 text-zinc-800" />
-        </button>
+      {/* Close Button */}
+      <button
+        onClick={onClose}
+        className="absolute top-6 right-6 z-[110] w-10 h-10 flex items-center justify-center rounded-none bg-white/10 hover:bg-white/20 border border-white/20 transition-colors"
+        aria-label="Close"
+      >
+        <X className="w-5 h-5 text-white" />
+      </button>
 
-        {/* Hero image strip */}
-        <div className="relative h-48 bg-zinc-100">
-          <Image
-            src={topper.image}
-            alt={topper.name}
-            fill
-            className="object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent" />
-          <div className="absolute bottom-4 left-6">
-            <p className="text-xs font-bold text-red-400 uppercase tracking-widest mb-0.5">
-              Rank #{topper.rank}
-            </p>
-            <h3 className="text-2xl font-black text-white uppercase tracking-tight">
-              {topper.name}
-            </h3>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="p-6 space-y-4">
-          <div className="flex flex-wrap gap-3">
-            <div className="bg-emerald-600 px-5 py-3 rounded-xl">
-              <p className="text-xs text-emerald-100 uppercase tracking-widest mb-0.5">Score</p>
-              <p className="text-3xl font-black text-white">{topper.percentage}</p>
-            </div>
-            <div className="bg-zinc-950 px-5 py-3 rounded-xl">
-              <p className="text-xs text-zinc-400 uppercase tracking-widest mb-0.5">Rank</p>
-              <p className="text-3xl font-black text-white">#{topper.rank}</p>
-            </div>
-            {raw?.batch && (
-              <div className="bg-zinc-100 px-5 py-3 rounded-xl">
-                <p className="text-xs text-zinc-500 uppercase tracking-widest mb-0.5">Batch</p>
-                <p className="text-sm font-bold text-zinc-950">{raw.batch}</p>
-              </div>
-            )}
-            {raw?.attendanceRecord && (
-              <div className="bg-zinc-100 px-5 py-3 rounded-xl">
-                <p className="text-xs text-zinc-500 uppercase tracking-widest mb-0.5">Attendance</p>
-                <p className="text-sm font-bold text-zinc-950">{raw.attendanceRecord}</p>
-              </div>
-            )}
-          </div>
-
-          <p className="text-zinc-600 text-sm leading-relaxed">
-            <span className="font-bold text-zinc-950">A true champion of academic excellence.</span>{" "}
-            Through unwavering dedication and consistent effort, this student has set a benchmark for
-            peers at Prabhat Coaching Classes — inspiring an entire generation of learners.
-          </p>
-        </div>
+      {/* Image Container */}
+      <div className="relative z-10 w-full max-w-3xl aspect-[3/4] md:aspect-auto md:max-h-[85vh] md:w-auto flex items-center justify-center">
+        <img
+          src={image}
+          alt={alt}
+          className="max-w-full max-h-[85vh] object-contain shadow-2xl border-4 border-white/10"
+        />
       </div>
     </div>
   )
@@ -149,23 +85,12 @@ function TopperCard({
     >
       {/* Photo */}
       <div className="relative h-48 md:h-56 bg-zinc-100">
-        <Image
+        <img
           src={topper.image}
           alt={topper.name}
-          fill
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-zinc-950/10 to-transparent" />
-
-        {/* Rank badge */}
-        <div className="absolute top-3 left-3 bg-red-600 text-white text-xs font-black px-2.5 py-1 rounded-full uppercase tracking-wide">
-          #{topper.rank}
-        </div>
-
-        {/* Percentage badge */}
-        <div className="absolute top-3 right-3 bg-emerald-600 text-white text-sm font-black px-2.5 py-1 rounded-full">
-          {topper.percentage}
-        </div>
       </div>
 
       {/* Info */}
@@ -174,13 +99,10 @@ function TopperCard({
           School Superstar
         </p>
         <h4 className="font-black text-zinc-950 text-sm uppercase tracking-wide leading-tight">
-          {topper.name}
+          {topper.name} - {topper.percentage}
         </h4>
-        {raw?.batch && (
-          <p className="text-xs text-zinc-400 mt-1">{raw.batch}</p>
-        )}
         <p className="text-xs text-zinc-500 mt-2 flex items-center gap-1 group-hover:text-red-600 transition-colors">
-          View profile <ArrowRight className="w-3 h-3" />
+          View full image <ArrowRight className="w-3 h-3" />
         </p>
       </div>
     </button>
@@ -203,7 +125,10 @@ function CtaCard() {
           Seats are limited — secure yours for the upcoming academic year.
         </p>
       </div>
-      <button className="mt-6 flex items-center gap-1.5 text-xs font-bold text-white uppercase tracking-wide bg-white/20 hover:bg-white/30 transition-colors px-4 py-2.5 rounded-lg">
+      <button
+        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+        className="mt-6 flex items-center gap-1.5 text-xs font-bold text-white uppercase tracking-wide bg-white/20 hover:bg-white/30 transition-colors px-4 py-2.5 rounded-lg"
+      >
         Enroll Now <ArrowRight className="w-3.5 h-3.5" />
       </button>
     </div>
@@ -281,18 +206,15 @@ function AutoScrollCarousel({
 // ─── Main section ─────────────────────────────────────────────────────────────
 
 export function ToppersSection() {
-  const [activeTab, setActiveTab] = useState<"toppers" | "media">("toppers")
-  const [selectedYear, setSelectedYear] = useState("2025-2026")
+  const [selectedYear, setSelectedYear] = useState("2026-2027")
   const [toppers, setToppers] = useState(fallbackToppers.map(transformTopper))
   const [rawToppers, setRawToppers] = useState<any[]>(fallbackToppers)
   const [isLoading, setIsLoading] = useState(true)
   const [isOffline, setIsOffline] = useState(false)
-  const [selectedTopper, setSelectedTopper] = useState<{
-    topper: ReturnType<typeof transformTopper>
-    raw: any
-  } | null>(null)
+  const [isViewAll, setIsViewAll] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<{ url: string; name: string } | null>(null)
 
-  const years = ["2025-2026", "2024-2025", "All-Time Records"]
+  const years = ["2026-2027", "2024-2025", "All-Time Records"]
 
   // Pick local fallback based on selected year
   const getLocalFallback = (year: string) => {
@@ -322,13 +244,41 @@ export function ToppersSection() {
         setIsOffline(true)
       } finally {
         setIsLoading(false)
+        setIsViewAll(false) // Reset viewAll toggle on year change
       }
     }
     fetchToppers()
   }, [selectedYear])
 
+  const handleToggleViewAll = async () => {
+    setIsLoading(true)
+    try {
+      if (isViewAll) {
+        const result = await getToppers({ year: selectedYear, limit: 8 })
+        if (result.data) {
+          setToppers(result.data.map(transformTopper))
+          setRawToppers(result.data)
+          setIsOffline(result.isOffline)
+        }
+        setIsViewAll(false)
+      } else {
+        const result = await getToppers({ year: selectedYear }) // fetches all
+        if (result.data) {
+          setToppers(result.data.map(transformTopper))
+          setRawToppers(result.data)
+          setIsOffline(result.isOffline)
+        }
+        setIsViewAll(true)
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
-    <section id="toppers" className="py-20 md:py-28 bg-zinc-50">
+    <section id="toppers" className="py-20 md:py-28 bg-zinc-50 border-t border-zinc-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -337,8 +287,8 @@ export function ToppersSection() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-zinc-950 mb-6 uppercase">
             Our Results Speak<br />Louder Than Words.
           </h2>
-          <p className="text-lg text-zinc-600 max-w-3xl mx-auto">
-            A testament to rigorous academic excellence and unwavering student dedication. Discover
+          <p className="text-lg text-zinc-650 max-w-3xl mx-auto">
+            A testament to academic excellence and unwavering student dedication. Discover
             the bright minds defining the future of PRABHAT COACHING CLASSES.
           </p>
         </div>
@@ -364,103 +314,71 @@ export function ToppersSection() {
           </select>
         </div>
 
-        {/* Tab buttons */}
-        <div className="flex gap-2 mb-8">
-          {(["toppers", "media"] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 text-sm font-bold uppercase tracking-wide transition-all duration-200 ${
-                activeTab === tab
-                  ? "bg-zinc-950 text-white"
-                  : "bg-white text-zinc-600 border border-zinc-300 hover:border-zinc-400"
-              }`}
-            >
-              {tab === "toppers" ? "Board Toppers" : "Media Archive"}
-            </button>
-          ))}
-        </div>
       </div>
 
-      {/* ── BOARD TOPPERS: infinite auto-scroll ─────────────────────────────── */}
-      {activeTab === "toppers" && (
-        <>
-          {isLoading ? (
-            <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin text-zinc-400" />
-              <span className="ml-3 text-zinc-500">Loading toppers...</span>
+      {/* ── BOARD TOPPERS ─────────────────────────────── */}
+      {isLoading ? (
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-zinc-400" />
+          <span className="ml-3 text-zinc-555 text-sm font-medium">Loading toppers...</span>
+        </div>
+      ) : (
+        <div className="px-4">
+          {isViewAll ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto py-4">
+              {toppers.map((topper, i) => (
+                <div key={topper._id + "-" + i} className="flex justify-center">
+                  <TopperCard
+                    topper={topper}
+                    raw={rawToppers[i]}
+                    onClick={() => setSelectedImage({ url: topper.image, name: topper.name })}
+                  />
+                </div>
+              ))}
+              <div className="flex justify-center">
+                <CtaCard />
+              </div>
             </div>
           ) : (
-            <div className="px-4">
+            <>
               <AutoScrollCarousel>
                 {toppers.map((topper, i) => (
                   <TopperCard
                     key={topper._id + "-" + i}
                     topper={topper}
                     raw={rawToppers[i]}
-                    onClick={() => setSelectedTopper({ topper, raw: rawToppers[i] })}
+                    onClick={() => setSelectedImage({ url: topper.image, name: topper.name })}
                   />
                 ))}
                 <CtaCard />
               </AutoScrollCarousel>
 
               <p className="text-center text-xs text-zinc-400 mt-4 uppercase tracking-widest">
-                Hover or tap a card to pause · Click to expand
+                Hover or tap a card to pause · Click to view full image
               </p>
-            </div>
+            </>
           )}
-        </>
-      )}
 
-      {/* ── MEDIA ARCHIVE ───────────────────────────────────────────────────── */}
-      {activeTab === "media" && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-black text-zinc-950 uppercase tracking-wide">
-              Media & Announcements Archive
-            </h3>
-            <span className="text-sm text-zinc-500 uppercase tracking-widest">Historical Records</span>
-          </div>
-
-          {mediaArchive.map((item, index) => (
-            <div
-              key={index}
-              className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-center ${
-                index % 2 === 1 ? "md:[direction:rtl]" : ""
-              }`}
+          <div className="mt-12 text-center">
+            <button
+              onClick={handleToggleViewAll}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-950 text-white hover:bg-red-600 font-bold uppercase tracking-wider text-xs transition-colors duration-300"
             >
-              <div
-                className={`aspect-[4/3] relative bg-zinc-100 overflow-hidden border border-zinc-200 ${
-                  index % 2 === 1 ? "[direction:ltr]" : ""
-                }`}
-              >
-                <Image src={item.image} alt={item.title} fill className="object-cover" />
-              </div>
-              <div className={`space-y-4 ${index % 2 === 1 ? "[direction:ltr]" : ""}`}>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-red-600 uppercase tracking-widest">{item.type}</span>
-                  <span className="text-xs text-zinc-400">-</span>
-                  <span className="text-xs text-zinc-500">{item.year}</span>
-                </div>
-                <h4 className="text-2xl font-black text-zinc-950 uppercase tracking-wide">{item.title}</h4>
-                <p className="text-zinc-600 leading-relaxed">{item.description}</p>
-                <button className="text-sm font-bold text-zinc-950 uppercase tracking-wide hover:text-red-600 transition-colors inline-flex items-center gap-2">
-                  View Full Resolution <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          ))}
+              {isViewAll ? "Show Less" : "View All Students"}
+            </button>
+          </div>
         </div>
       )}
 
-      {/* ── MODAL ───────────────────────────────────────────────────────────── */}
-      {selectedTopper && (
-        <TopperModal
-          topper={selectedTopper.topper}
-          raw={selectedTopper.raw}
-          onClose={() => setSelectedTopper(null)}
+      {/* ── LIGHTBOX MODAL ─────────────────────────────────────────────────── */}
+      {selectedImage && (
+        <ImageLightboxModal
+          image={selectedImage.url}
+          alt={selectedImage.name}
+          onClose={() => setSelectedImage(null)}
         />
       )}
     </section>
   )
 }
+

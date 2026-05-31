@@ -1,14 +1,8 @@
 "use client"
 
-import { Library, HelpCircle, ClipboardCheck, Heart, Users, Shield } from "lucide-react"
+import { HelpCircle, ClipboardCheck, Users } from "lucide-react"
 
 const features = [
-  {
-    icon: Library,
-    title: "In-House Reference Library",
-    description: "A thoroughly quiet, well-maintained space stocked with exhaustive board question papers and textbooks.",
-    color: "bg-blue-500",
-  },
   {
     icon: HelpCircle,
     title: "Daily Doubt Cells",
@@ -22,22 +16,10 @@ const features = [
     color: "bg-red-500",
   },
   {
-    icon: Heart,
-    title: "Stress Management & Counseling",
-    description: "Expert emotional tracking and guidance to maintain peak focus and mental health stability.",
-    color: "bg-purple-500",
-  },
-  {
     icon: Users,
     title: "Routine Parent-Teacher Meets",
     description: "Constant, transparent analytics updates regarding scores and attendance dispatched to parents.",
     color: "bg-amber-500",
-  },
-  {
-    icon: Shield,
-    title: "Conducive Learning Atmosphere",
-    description: "State-of-the-art comfortable classroom architectures prioritizing deep concentration.",
-    color: "bg-zinc-700",
   },
 ]
 
@@ -59,7 +41,7 @@ export function InfrastructureSection() {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <div
               key={index}

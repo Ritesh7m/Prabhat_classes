@@ -61,6 +61,9 @@ export function DraggableCardBody({
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!isDragging) return
+      if (e.cancelable) {
+        e.preventDefault()
+      }
       const touch = e.touches[0]
       setPosition({
         x: touch.clientX - startPos.x,
@@ -75,7 +78,7 @@ export function DraggableCardBody({
     if (isDragging) {
       window.addEventListener("mousemove", handleMouseMove)
       window.addEventListener("mouseup", handleEnd)
-      window.addEventListener("touchmove", handleTouchMove)
+      window.addEventListener("touchmove", handleTouchMove, { passive: false })
       window.addEventListener("touchend", handleEnd)
     }
 

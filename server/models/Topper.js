@@ -21,7 +21,7 @@ const topperSchema = new mongoose.Schema({
   year: {
     type: String,
     required: true,
-    default: '2025-2026'
+    default: '2026-2027'
   },
   subjects: [{
     name: String,

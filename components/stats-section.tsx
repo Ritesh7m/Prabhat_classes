@@ -22,8 +22,8 @@ const stats = [
     bgColor: "bg-red-500",
   },
   {
-    value: "24/7",
-    label: "Reference Library Access",
+    value: "10+",
+    label: "Board-Pattern Mock Tests",
     icon: BookOpen,
     bgColor: "bg-zinc-800",
   },

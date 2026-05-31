@@ -64,23 +64,14 @@ export const metadata: Metadata = {
   title: 'Prabhat Coaching Classes | Excellence in Education | Ghatkopar West, Mumbai',
   description: 'Prabhat Coaching Classes - The ultimate launchpad for Commerce & School Toppers in Ghatkopar. Personalized classroom mentorship for Class VIII to XII Commerce. 100% Board Exam Success Rate.',
   keywords: 'coaching classes, tuition, ghatkopar, mumbai, commerce, board exams, class 10, class 12, accounts, economics',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
+        url: '/logo_icon.svg',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/logo_icon.svg',
   },
 }
 

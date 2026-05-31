@@ -1,7 +1,8 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Star, Download, ArrowRight } from "lucide-react"
+import { Star, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface HeroSectionProps {
@@ -9,19 +10,29 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ onNavigate }: HeroSectionProps) {
+  const [showVideo, setShowVideo] = useState(false)
+  useEffect(() => {
+    const timer = setTimeout(() => setShowVideo(true), 1200)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Video Background */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="/videos/promotion.mp4" type="video/mp4" />
-        </video>
+      <div className="absolute inset-0 z-0 bg-zinc-950">
+        {showVideo ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover transition-opacity duration-1000 opacity-100"
+          >
+            <source src="/videos/promotion.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <div className="w-full h-full bg-zinc-950" />
+        )}
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent"/>
       </div>
@@ -46,24 +57,17 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
 
             {/* Supporting Text */}
             <p className="text-lg text-zinc-300 leading-relaxed max-w-xl">
-              A premium, focused educational environment dedicated to cultivating academic excellence, critical thinking, and outstanding board results.
+              Educational environment dedicated to cultivating academic excellence, critical thinking, and outstanding board results.
             </p>
 
             {/* Action Row */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button
                 onClick={() => onNavigate("programs")}
-                className="bg-red-600 text-white rounded-none px-8 py-4 h-auto text-base font-bold hover:bg-red-700 transition-all duration-300 group uppercase tracking-wide"
+                className="bg-red-600 text-white rounded-none px-8 py-4 h-auto text-base font-bold hover:bg-red-700 transition-all duration-300 group uppercase tracking-wide self-start"
               >
-                Explore Batches
+                Explore Programs
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button
-                variant="outline"
-                className="border-2 border-white/30 bg-transparent text-white rounded-none px-8 py-4 h-auto text-base font-bold hover:bg-white/10 hover:border-white/50 transition-all duration-300"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Download Brochure
               </Button>
             </div>
           </div>
@@ -81,6 +85,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                   src="/images/owner.png"
                   alt="Director of Prabhat Coaching Classes"
                   fill
+                  sizes="320px"
                   className="object-cover object-top"
                   priority
                 />
@@ -92,7 +97,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                   Message from our Director
                 </p>
                 <p className="text-sm text-zinc-700 leading-snug italic">
-                  &quot;Shaping Academic Futures for Over a Decade.&quot;
+                  &quot;Strong fundamentals today create successful futures tomorrow.&quot;
                 </p>
               </div>
             </div>
